@@ -49,3 +49,4 @@ When we are ready to integrate, we can supply you with the client ID and client 
 
 Postman makes testing the integration very easy. Within the **Authorization** section of a request or collection, select **“OAuth 2.0”** as the Type. Finally, as the meme goes, *“draw the rest of the owl”* by configuring the remainder of the OAuth section with the values shown below. Substitute your desired values for **Auth URL** and **Token URL** from the well-known document, the values for **Client ID** and **Secret** from what we give you, and then season the rest to taste. Reach out to us if you need any additional integration assistance. 
 
+![image](https://github.com/rezstream/rezStream-Cloud-API-Documentation/assets/1365831/d7ab2569-2bda-4175-95e9-7cabe104edd1)
