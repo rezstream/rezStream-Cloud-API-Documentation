@@ -38,7 +38,8 @@ Before getting started with this style of integration, reach out to us so we can
 * A list of redirect URLs that would be used in various OAuth flows 
 * A description of how the integration will technically function 
 
-📱 **Note for mobile & browser integrations:** For security reasons, we do not support OAuth flows directly from end-user devices. If there is a need for this kind of scenario, reach out and we might be able to work something out. Ideally, we would like API integrations to be from secured services communicating directly to our service endpoints. 
+> [!NOTE]
+> 📱 **For mobile & browser integrations:** For security reasons, we do not support OAuth flows directly from end-user devices. If there is a need for this kind of scenario, reach out and we might be able to work something out. Ideally, we would like API integrations to be from secured services communicating directly to our service endpoints. 
 
 When we are ready to integrate, we can supply you with the client ID and client secret that are required for the OAuth flows. The OAuth endpoints are already publicly available in the “well-known” document: https://account.rezstream.com/.well-known/openid-configuration. 
 
