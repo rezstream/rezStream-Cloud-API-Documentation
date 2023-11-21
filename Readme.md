@@ -53,3 +53,51 @@ Postman makes testing the integration very easy. Within the **Authorization** se
 ![image](https://github.com/rezstream/rezStream-Cloud-API-Documentation/assets/1365831/d7ab2569-2bda-4175-95e9-7cabe104edd1)
 
 After the OAuth 2 section is configured, clicking **Get New Access Token** will open a web browser to start the authorization code flow. After authenticating, you can approve the integration for a specific tenant. Granting access will trigger the remaining parts of the flow and provide Postman with an access token and if requested, a refresh token. The access token can be used by associated Postman requests to authenticate against our rezStream Cloud API.
+
+# rezStream Cloud API
+
+After obtaining an access token with sufficient permissions, queries to the rezStream Cloud API will be permitted. So far, all endpoints only support querying data from the system. In the future we will support the submission of commands and data mutations. We provide Open API documents for our API which can be used to get an overview of the offered endpoints: https://cloudapi.rezstream.com/openapi. The Open API documents aren’t the most human readable formats, but it outlines the supported endpoints and requests.
+
+Each request sent to the API **requires**:
+* A valid "Bearer" token in the `Authorization` header
+* An `X-RezStream-Api-Version` header with the desired version string of the API
+
+## Versioning
+
+We use a date style of versioning and require you to send us an explicit version header for each request. When we make incremental and “safe” changes to response models and API endpoints we may allow those changes to apply to older API versions. However, changes considered breaking should be isolated from older versions, where reasonable. This is a balance between providing a stable yet easy to use and maintain API for integrations.
+
+## Permissions
+
+Each access token has permissions associated with it. A token that only has access to read reservations or invoices will fail when used to modify them. These permissions are set upon authorizing an integration, so consider the requested scopes carefully when establishing an integration.
+
+# The Data and Endpoints
+
+## Reservations
+
+### Finding Reservations
+
+We currently have two endpoints to find reservations in our system; “by stay dates” and “by last update timestamp”.
+
+#### By Last Update
+
+The list of reservations by update timestamp can be queried from a starting date and uses forward only pagination due to the shifting nature of the data. This can be a handy endpoint to use when polling for new or modified reservations. The simplest request can start with `/reservations/updated?from=2023-01-01T00:00:00Z&limit=20` and will provide the reservations in ascending update order. In the future, web-hooks should make this endpoint redundant.
+
+#### By Stay Date
+
+Another method of locating reservations is to use the stay based window query, searching by date. This can be useful when you need perform an initial population of data or quickly ensure you have the latest data for a window of dates. Note that the input date values are in the local time zone of the tenant. The simplest query for this endpoint is `/reservations/byDate?from=2023-01-01&to=2024-01-01&limit=20` and pagination can provide more results if they exist.
+
+For more details, refer to the open API document.
+
+### Reservation Details
+
+Given a reservation ID, you can get a lot of information about a reservation. A basic query for this looks like `/reservations/a2857289-0f63-4a26-b509-444699485a33` and will return a large body of information about the reservation if found.
+
+Contact us for any clarification on the data in this payload. Some important points to note, especially for large group reservations:
+* A reservation can have multiple unit assignments
+* A reservation can have a group of multiple people
+* Different people can be assigned to different unit assignments
+* Invoices can be assigned to different members of the group
+* Different unit assignments can be associated with different invoices
+* People may have a different mobile phone number from their regular phone number
+* Some people don’t have a mobile phone number
+* Unit assignments can have different dates of stay
