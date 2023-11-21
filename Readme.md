@@ -3,6 +3,21 @@
 > [!IMPORTANT]
 > This is an early-stage document that is likely to evolve and change, possibly quickly. So, please be sure to check back frequently for updates. If you have any questions or comments, please feel free to reach out to the rezStream development team at development@rezstream.com.
 
+## Contents
+* [Authentication](#authentication)
+* [Manual API Token Generation](#manual-api-token-generation)
+* [OAuth API Authorization and Token Generation](#oauth-api-authorization-and-token-generation)
+* [Postman Example](#postman-example)
+* [rezStream Cloud API](#rezstream-cloud-api)
+   * [Versioning](#versioning)
+   * [Permissions](#permissions)
+ * [The Data and Endpoints](#the-data-and-endpoints)
+   * [Reservations](#reservations)
+      * [Finding Reservations](#finding-reservations)
+         * [By Last Update](#by-last-update)
+         * [By Stay Date](#by-stay-date)
+      * [Reservation Details](#reservation-details)
+
 ## Authentication
 
 External authentication for rezStream Cloud services can be done through the new https://account.rezstream.com/ site. We don’t currently use this as our primary means of authentication, but it will soon be part of a unified authentication experience for both external applications and all rezStream Cloud systems. As a starting point for OAuth and OIDC, we provide a well-known configuration endpoint which facilitates endpoint and public key discovery: https://account.rezstream.com/.well-known/openid-configuration . The account application can be used to:
