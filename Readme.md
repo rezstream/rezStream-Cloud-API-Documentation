@@ -20,30 +20,35 @@
 
 ## Authentication
 
-External authentication for rezStream Cloud services can be done through the new https://account.rezstream.com/ site. We don’t currently use this as our primary means of authentication, but it will soon be part of a unified authentication experience for both external applications and all rezStream Cloud systems. As a starting point for OAuth and OIDC, we provide a well-known configuration endpoint which facilitates endpoint and public key discovery: https://account.rezstream.com/.well-known/openid-configuration . The account application can be used to:
+External authentication for rezStream Cloud accounts can be performed using https://account.rezstream.com/ . As a starting point for OAuth and OIDC, we provide a [openid-configuration](https://account.rezstream.com/.well-known/openid-configuration) endpoint which privates information about OAuth endpoints, public keys, and OAuth configuration. The account application can be used to:
+
 1. Manually generate tenant API access tokens
 2. Generate API access tokens via OAuth
 3. Support OIDC sign-on scenarios using rezStream accounts
 
-Different kinds of tokens in different formats for different contexts can be issued through the user interface and the OAuth endpoints. There are effectively two kinds of tokens issued from the account application. 
-1. The first kind of token is for API usage where the subject of the token is the tenant/business itself and is in a reference token format. 
-2. The second is an access token for rare single sign-on integrations where the subject is a user, and it doubles as an identity token using a JWT format. 
+Different kinds of tokens in different formats for different contexts can be issued through the user interface and the OAuth endpoints. The following are examples of different scenarios:
 
-## Manual API Token Generation 
+- OAuth API tokens providing access to one or more tenants.
+- Manually generated access tokens for testing or extremely specialized integration scenarios.
+- Single sign-on scenarios where the subject is a user, providing a reference access token and [JWT](https://jwt.io/) identity token.
 
-Long-lived API access tokens providing access to a single rezStream Cloud tenant can be created and revoked manually within the account portal. This can be handy for bootstrapping development and for small custom integrations but is not advisable for large scale integrations with multiple customers and tenants. The generated reference token from this process should be kept private and only transmitted to our API endpoints from a secured system. To create a token for access to a specific tenant manually: 
+## Manual API Token Generation
+
+Long-lived API access tokens providing access to a single rezStream Cloud tenant can be created and revoked manually within the account portal. This can be handy for bootstrapping development and for small custom integrations but is not advisable for large scale integrations with multiple customers and tenants. The generated access token from this process is extremely long lived and high risk, so handle and transmit it with great care. To create a token for access to a specific tenant manually: 
 
 1. Login to https://account.rezstream.com/ using an account which has user management access to the subject business or tenant.
 2. Navigate to the **Businesses** section and then to the business you wish to manage 
 3. If you have appropriate access, you should see a link to **Manage app authorizations**. Navigate there. 
 4. On the **Manage integrations** page you can select the required scopes for the new token and click the **Generate Token** button. 
 5. After the token is generated, a token string is presented to you. This is the only opportunity to retrieve the private and secret token value, so copy it somewhere safe. 
-6. Click **Continue** to return to the **Manage integrations** page. 
-   * At any time, you can revoke the generated token from this page.
+6. Click **Continue** to return to the **Manage integrations** page.
+   * At any time, you can revoke the generated token from this page. This is strongly recommended when the token is no longer needed.
 
-## OAuth API Authorization and Token Generation 
+## OAuth API Authorization and Token Generation
 
 A much more secure, scalable, and user-friendly workflow to generate refresh tokens and short-lived access tokens is through the OAuth authorization code flow. These tokens provide scoped access to one or more rezCloud tenants, and contain no information embedded within them. When multiple tenants are available to a user during the authorization process, the user can select which tenant or tenants will be the subject for the integration authorization and resulting token. After an integration is approved, the standard authorization code flow process takes place and can be used to generate a refresh token and/or access token. 
+
+When initiating an authorization request, scope must be provided. A list of supported scopes can be found in the /.well-known/openid-configuration document. An example of scopes for an API integration might be `offline_access folio:view` which would request approval to access reservation data and also permit refreshing the granted token.
 
 While it is not required, we very strongly recommend that integrations utilize refresh tokens to generate new access tokens after expiration. When relying only on access tokens a user will repeatedly have to re-authorize integrations to generate access tokens. Refresh tokens allow the integrating service to continually maintain and cycle the access tokens automatically to reduce user interaction and reduce the risks in the event an access token is exposed. Refresh tokens can be selected by including the `offline_access` scope when initiating an OAuth flow.
 
