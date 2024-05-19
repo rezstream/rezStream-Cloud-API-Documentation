@@ -88,7 +88,7 @@ After obtaining an access token with sufficient permissions, queries to the rezS
 
 Each request sent to the API **requires**:
 * A valid "Bearer" token in the `Authorization` header
-* An `X-RezStream-Api-Version` header with the desired version string of the API
+* An additional field in the Headers section with key: `X-RezStream-Api-Version` and value: `<version>`. Note the available versions can be found [here]([url](https://cloudapi.rezstream.com/openapi)) and the value must be a date in "YYYY-MM-DD" format.
 
 ## Versioning
 
