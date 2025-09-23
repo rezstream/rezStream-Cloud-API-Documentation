@@ -1,0 +1,488 @@
+{
+	"info": {
+		"name": "rezStream Cloud API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "inventory",
+			"item": [
+				{
+					"name": "Inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Business",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/business",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"business"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/properties",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Units",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/units",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"units"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Unit Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/unitTypes",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"unitTypes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "availability",
+			"item": [
+				{
+					"name": "Blocks by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/blocks/byDate?from=2023-01-01&to=2027-01-01&limit=2&skip=1",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"blocks",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "to",
+									"value": "2027-01-01"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "skip",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Availability Calendar by Unit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/calendar/unit?from=2025-07-20&to=2025-08-10",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"calendar",
+								"unit"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-07-20"
+								},
+								{
+									"key": "to",
+									"value": "2025-08-10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Availability Calendar by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/calendar/type?from=2025-07-20&to=2025-08-11",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"calendar",
+								"type"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-07-20"
+								},
+								{
+									"key": "to",
+									"value": "2025-08-11"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rate",
+			"item": [
+				{
+					"name": "Rates Reserved",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/reserved/byDate?from=2025-08-25&limit=10",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"reserved",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-08-25"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Nightly - GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/nightly?from=2025-08-01&to=2027-01-01",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"nightly"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-08-01"
+								},
+								{
+									"key": "to",
+									"value": "2027-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservations",
+			"item": [
+				{
+					"name": "Reservations by Updated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/updated?limit=10&from=2025-07-29T00%3A00%3A00Z",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"updated"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "from",
+									"value": "2025-07-29T00%3A00%3A00Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservations by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/byDate?from=2025-08-07&to=2026-01-01&limit=10",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-08-07"
+								},
+								{
+									"key": "to",
+									"value": "2026-01-01"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservation Details",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/{{reservation_id}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"{{reservation_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "misc",
+			"item": [
+				{
+					"name": "Token Info",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/auth/tokendetails",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"auth",
+								"tokendetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "authRequestParams",
+				"value": [
+					{
+						"key": "tid",
+						"value": "",
+						"enabled": false,
+						"send_as": "request_url"
+					},
+					{
+						"key": "multiTenant",
+						"value": "true",
+						"enabled": false,
+						"send_as": "request_url"
+					}
+				],
+				"type": "any"
+			},
+			{
+				"key": "scope",
+				"value": "revenue_management guest_communication offline_access",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{rezcloudapi_clientsecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{rezcloudapi_clientid}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{rezcloudapi_auth_url}}/connect/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{rezcloudapi_auth_url}}/connect/authorize",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rezcloudapi_url",
+			"value": "https://cloudapi.rezstream.com"
+		},
+		{
+			"key": "rezcloudapi_auth_url",
+			"value": "https://account.rezstream.com"
+		},
+		{
+			"key": "rezcloudapi_clientid",
+			"value": ""
+		},
+		{
+			"key": "rezcloudapi_clientsecret",
+			"value": ""
+		},
+		{
+			"key": "reservation_id",
+			"value": ""
+		}
+	]
+}
