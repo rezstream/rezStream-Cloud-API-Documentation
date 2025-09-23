@@ -20,7 +20,7 @@
 
 ## Authentication
 
-External authentication for rezStream Cloud accounts can be performed using https://account.rezstream.com/ . As a starting point for OAuth and OIDC, we provide a [openid-configuration](https://account.rezstream.com/.well-known/openid-configuration) endpoint which privates information about OAuth endpoints, public keys, and OAuth configuration. The account application can be used to:
+External authentication for rezStream Cloud accounts can be performed using [https://account.rezstream.com/](https://account.rezstream.com/). As a starting point for OAuth and OIDC, we provide an [openid-configuration](https://account.rezstream.com/.well-known/openid-configuration) endpoint which provides information about OAuth endpoints, public keys, and OAuth configuration. The account site can be used to:
 
 1. Manually generate tenant API access tokens
 2. Generate API access tokens via OAuth
@@ -34,7 +34,7 @@ Different kinds of tokens in different formats for different contexts can be iss
 
 ## Manual API Token Generation
 
-Long-lived API access tokens providing access to a single rezStream Cloud tenant can be created and revoked manually within the account portal. This can be handy for bootstrapping development and for small custom integrations but is not advisable for large scale integrations with multiple customers and tenants. The generated access token from this process is extremely long lived and high risk, so handle and transmit it with great care. To create a token for access to a specific tenant manually: 
+Long-lived API access tokens providing access to a single rezStream Cloud tenant can be created and revoked manually within the account portal. This can be handy for bootstrapping development and for small custom integrations but is not advisable for large scale integrations with multiple customers and tenants. The generated access token from this process is extremely long lived, so handle and transmit it with great care. To create a token for access to a specific tenant manually: 
 
 1. Login to https://account.rezstream.com/ using an account which has user management access to the subject business or tenant.
 2. Navigate to the **Businesses** section and then to the business you wish to manage 
@@ -48,9 +48,9 @@ Long-lived API access tokens providing access to a single rezStream Cloud tenant
 
 A much more secure, scalable, and user-friendly workflow to generate refresh tokens and short-lived access tokens is through the OAuth authorization code flow. These tokens provide scoped access to one or more rezCloud tenants, and contain no information embedded within them. When multiple tenants are available to a user during the authorization process, the user can select which tenant or tenants will be the subject for the integration authorization and resulting token. After an integration is approved, the standard authorization code flow process takes place and can be used to generate a refresh token and/or access token. 
 
-When initiating an authorization request, scope must be provided. A list of supported scopes can be found in the /.well-known/openid-configuration document. An example of scopes for an API integration might be `offline_access folio:view` which would request approval to access reservation data and also permit refreshing the granted token.
+When initiating an authorization request, scopes must be provided. A list of supported scopes can be found in the [/.well-known/openid-configuration](https://account.rezstream.com/.well-known/openid-configuration) document. An example of scopes for an API integration might be `offline_access guest_communication` which would request approval to access reservation data and also enables refresh tokens.
 
-While it is not required, we very strongly recommend that integrations utilize refresh tokens to generate new access tokens after expiration. When relying only on access tokens a user will repeatedly have to re-authorize integrations to generate access tokens. Refresh tokens allow the integrating service to continually maintain and cycle the access tokens automatically to reduce user interaction and reduce the risks in the event an access token is exposed. Refresh tokens can be selected by including the `offline_access` scope when initiating an OAuth flow.
+We strongly recommend that integrations utilize refresh tokens to generate new access tokens after expiration. When relying only on access tokens a user will repeatedly have to re-authorize integrations to generate access tokens. Refresh tokens allow the integrating service to continually maintain and cycle the access tokens automatically to reduce user interaction and reduce the risks in the event an access token is exposed. Refresh tokens can be selected by including the `offline_access` scope in the list of scopes when initiating an OAuth flow.
 
 Before getting started with this style of integration, reach out to us so we can register an integration for you within our internal systems. We will need a few things from you to do so:
 
