@@ -63,6 +63,10 @@ Before getting started with this style of integration, reach out to us so we can
 
 When we are ready to integrate, we can supply you with the client ID and client secret that are required for the OAuth flows. Our current OAuth endpoints can be found in the server metadata document: https://account.rezstream.com/.well-known/openid-configuration .
 
+### Scopes
+
+There are a number of possible scopes that can be provided when requesting a token. Those scopes can be found within the OpenID well known configuration document. It is strongly recommended that scopes focused on use cases be used over scopes focused on access roles. For example, scopes such as `guest_communication` or `revenue_management` should be preferred to other more granular scopes. This will provide a better user experience and also allows authorizations to better grow with the API.
+
 ### Multi-Tenant OAuth Tokens
 
 While we prefer each token to have access to a single tenant, our system does support multi-tenant access for a token for cases where this is required. We treat single tenant tokens as the default and provide the smoothest path for them but this approach adds ambiguity for tokens associated with multiple tenants requiring more explicit information in requests.
@@ -79,7 +83,17 @@ When making a request to other Cloud API endpoints with a multi-tenant token, th
 ## Postman Example 
 
 > [!NOTE]
-> This requires us to add postman’s redirect service as an allowed redirect URL for your integration. We might not permit this redirect URL permanently for a production client ID as a security measure. 
+> Postman requires us to add postman’s redirect service as an allowed redirect URL for your integration. We might not permit this redirect URL permanently for a production client ID as a security measure.
+
+### Postman Collection Import
+
+After importing the [Postman Collection](./rezStream%20Cloud%20API.postman_collection.json), authentication can be used after a few items are configured:
+
+- Set the `rezcloudapi_clientid` collection or environment variable to your assigned client ID.
+- Set the `rezcloudapi_clientsecret` collection or environment variable to your client secret.
+- Specify appropriate space delimited scopes within the Auth section of the collection.
+
+### Manual Postman Configuration
 
 Postman makes testing the integration very easy. Within the **Authorization** section of a request or collection, select `OAuth 2.0` as the **Type**. Finally, as the meme goes, *“draw the rest of the owl”* by configuring the remainder of the OAuth section with the values shown below. Substitute your desired values for `Auth URL` and `Access Token URL` from the well-known metadata document, the values for `Client ID` and `Client Secret` from what we give you, and then season the remaining inputs to taste. Reach out to us if you need any additional integration assistance. Our OAuth endpoint also supports additional custom arguments which can be supplied in the "Auth Request" section of the postman OAuth tool.
 
@@ -91,13 +105,21 @@ After the OAuth 2 section is configured, clicking **Get New Access Token** will 
 
 After obtaining an access token with sufficient permissions, queries to the rezStream Cloud API will be permitted. So far, all endpoints only support querying data from the system. In the future we will support the submission of commands and data mutations. We provide Open API documents for our API which can be used to get an overview of the offered endpoints: https://cloudapi.rezstream.com/openapi. The Open API documents aren’t the most human readable formats, but it outlines the supported endpoints and requests.
 
-Each request sent to the API **requires**:
-* A valid "Bearer" token in the `Authorization` header
-* An `X-RezStream-Api-Version` header with the desired version string of the API
+## Additional resources:
+
+- [Postman Collection](./rezStream%20Cloud%20API.postman_collection.json)
+- [Open API](https://cloudapi.rezstream.com/openapi)
+
+## Request Headers
+
+* Authorization: Most request sent to the API **require** A valid "Bearer" token in the `Authorization` header.
+* X-RezStream-Api-Version: This optional header can be used to override the default API version. See the Versioning section for more details.
 
 ## Versioning
 
-We use a date style of versioning and require you to send us an explicit version header for each request. When we make incremental and “safe” changes to response models and API endpoints we may allow those changes to apply to older API versions. However, changes considered breaking should be isolated from older versions, where reasonable. This is a balance between providing a stable yet easy to use and maintainable API for integrations.
+We use a date style of versioning in the format of `YYYY-MM-DD` which can be use to override the default version of a request. The known list of API versions should be available within our [Open API](https://cloudapi.rezstream.com/openapi) documents. Version overrides can be added to requests through the `X-RezStream-Api-Version` HTTP header.
+
+When we make incremental and “safe” changes to response models and API endpoints we may allow those changes to apply to older API versions. However, changes considered breaking should be isolated from older versions, where reasonable. This is a balance between providing a stable yet easy to use and maintainable API for integrations.
 
 ## Permissions
 
