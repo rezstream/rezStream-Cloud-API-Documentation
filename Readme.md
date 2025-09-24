@@ -1,7 +1,7 @@
 # rezStream Cloud API Documentation
 
 > [!IMPORTANT]
-> This is an early-stage document that is likely to evolve and change, possibly quickly. So, please be sure to check back frequently for updates. If you have any questions or comments, please feel free to reach out to the rezStream development team at development@rezstream.com.
+> This document is likely to evolve and change. Please be sure to check back for updates. If you have any questions or comments, please feel free to reach out to the rezStream development team at development@rezstream.com.
 
 ## Contents
 * [Authentication and Authorization](#authentication-and-authorization)
@@ -104,6 +104,7 @@ After obtaining an access token with sufficient permissions, queries to the rezS
 
 - [Postman Collection](./rezStream%20Cloud%20API.postman_collection.json)
 - [Open API](https://cloudapi.rezstream.com/openapi)
+- [OpenID Configuration](https://account.rezstream.com/.well-known/openid-configuration)
 
 ### Request Headers
 
