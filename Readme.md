@@ -218,7 +218,7 @@ Rate and pricing information can be queried via some endpoints.
 
 #### Nightly Rates (GET)
 
-To retrieve the nightly configuration for rates within a given date range, use the `/rates/nightly?from=from=2025-09-23&to=2025-10-03` endpoint. While it isn't a true representation of how rates are represented or configured in our system, the format returned should meet the needs of most rate management systems.
+To retrieve the nightly configuration for rates within a given date range, use the `/rates/nightly?from=from=2025-09-23&to=2025-10-03` endpoint. While it isn't a true representation of how rates are work in our system, the format returned should meet the needs of most rate management systems.
 
 ```json
 [
@@ -232,7 +232,7 @@ To retrieve the nightly configuration for rates within a given date range, use t
     "seasonType": "Daily",
     "startDate": "2025-09-23",
     "endDate": "2025-10-03",
-    "allowUpdates": false,
+    "allowUpdates": true,
     "data": [
       {
         "price": 150, "baseOccupancy": 1,
@@ -253,6 +253,41 @@ To retrieve the nightly configuration for rates within a given date range, use t
   // ...
 ]
 ```
+
+#### Nightly Rates (POST)
+
+Rates can be updated on a nightly basis by sending a POST request to the `/rates/nightly` endpoint.
+
+> [!IMPORTANT]
+> Only daily rates are currently supported. We may support nightly updates for long term or extended rates in the future. See the `allowUpdates` facet in the results of the accompanying GET request to best know if a rate may be updated using this API.
+
+Request:
+
+```json
+[
+  //...
+  {
+    "rateId": "5e055c34-1371-453e-878b-82b81d131aaf",
+    "data": [
+        { "date": "2026-01-14", "price": 190.00, "closedToArrival": false },
+        { "date": "2026-01-15", "price": 190.00 },
+        { "date": "2026-01-16", "price": 215.00, "minimumNights": 2, "closedToDeparture": false },
+        { "date": "2026-01-17", "price": 215.00, "minimumNights": 2, "closedToDeparture": true, "closedToArrival": true }
+    ]
+  },
+  //...
+]
+```
+
+Response: 200 OK when successfully applied.
+
+Any non-null facets supplied per date will apply an update to the data. The available facets are as follows:
+
+- price: The nightly price to charge for the configured base pricing occupancy.
+- minimumNights: The minimum nights stay required to permit booking for the associated date.
+- baseOccupancy: The occupancy count up to which base pricing will apply before extra guest charges are added to an invoice.
+- closedToArrival: Indicates if the rate may or may not be used for reservations which arrive on the associated date.
+- closedToDeparture: Indicates if the rate may or may not be used for reservations which depart on the associated date.
 
 #### Reserved Rates
 
@@ -278,6 +313,7 @@ To get a list of reservations with pricing information, the endpoint `/rates/res
         "nights": 3,
         "unitId": "9c0bd951-945a-4504-b03a-c6189e03af3d",
         "unitTypeId": "5b49d220-b0bd-4317-b5de-fbed92f6193a",
+        "propertyId": "6bdd5ab5-c22b-4713-8a73-d5c41b3d7d3e",
         "rateId": "5e055c34-1371-453e-878b-82b81d131aaf",
         "ratePlanId": "5b49d220-b0bd-4317-b5de-fbed92f6193a",
         "occupancyCount": 2,
@@ -293,7 +329,7 @@ To get a list of reservations with pricing information, the endpoint `/rates/res
 
 ### Reservations
 
-We currently have two endpoints enabling finding reservations in our system "by stay dates" or "by last update timestamp".
+We currently have two endpoints that can be used to find reservations in our system "by stay dates" or "by last update timestamp".
 
 #### By Last Update
 

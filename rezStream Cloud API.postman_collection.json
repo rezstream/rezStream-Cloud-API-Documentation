@@ -202,7 +202,51 @@
 			"name": "rate",
 			"item": [
 				{
-					"name": "Rates Reserved",
+					"name": "Rates Reserved by Updated",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"const earlyToday = new Date(new Date().setHours(0, 0, 0, 0));\r",
+									"pm.variables.set(\"resupdated-from\", moment(earlyToday).toISOString());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/reserved/updated?limit=10&from={{resupdated-from}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"reserved",
+								"updated"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "from",
+									"value": "{{resupdated-from}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Reserved by Date",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -235,7 +279,7 @@
 					"response": []
 				},
 				{
-					"name": "Rates Nightly - GET",
+					"name": "Rates Nightly",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -257,6 +301,36 @@
 									"key": "to",
 									"value": "{{todayPlusTen}}"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Nightly Update",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"rateId\": \"86abdc47-db5f-4e48-aa98-a53c4612ef6b\",\r\n        \"data\": [\r\n            { \"date\": \"2026-01-14\", \"price\": 190.00 },\r\n            { \"date\": \"2026-01-15\", \"price\": 190.00 },\r\n            { \"date\": \"2026-01-16\", \"price\": 215.00, \"minimumNights\": 2, \"closedToArrival\": false },\r\n            { \"date\": \"2026-01-16\", \"price\": 215.00, \"minimumNights\": 2, \"closedToDeparture\": true }\r\n        ]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/nightly",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"nightly"
 							]
 						}
 					},
