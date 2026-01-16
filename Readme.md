@@ -147,11 +147,12 @@ This offers a general overview of our API endpoints. For specific schema details
 
 There are multiple special purpose inventory endpoints available, but generally the `/inventory` endpoint. This single endpoint returns the following information in a single response:
 
-- Business details including time zone and location.
+- Business details including time zone and location
 - Properties associated with a tenant business
 - Units with details such as capacity
-- Unit Types with details such as associated units
+- Unit Types with details such as associated units and associated rates
 - Guest types
+- Rates
 
 In addition to the broad `/inventory` endpoints there are more specialized endpoints which may be more appropriate for your needs.
 
@@ -159,6 +160,7 @@ In addition to the broad `/inventory` endpoints there are more specialized endpo
 - `/inventory/properties`
 - `/inventory/units`
 - `/inventory/unitTypes`
+- `/inventory/rates`
 
 ### Availability
 

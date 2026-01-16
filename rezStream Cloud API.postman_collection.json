@@ -95,6 +95,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Inventory Rates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/rates",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"rates"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
