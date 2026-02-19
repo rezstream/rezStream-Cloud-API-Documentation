@@ -1,0 +1,709 @@
+{
+	"info": {
+		"name": "rezStream Cloud API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "inventory",
+			"item": [
+				{
+					"name": "Inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Business",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/business",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"business"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/properties",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Units",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/units",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"units"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Unit Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/unitTypes",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"unitTypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Rates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/inventory/rates",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"inventory",
+								"rates"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "availability",
+			"item": [
+				{
+					"name": "Availability Calendar by Unit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/calendar/unit?from={{today}}&to={{todayPlusTen}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"calendar",
+								"unit"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Availability Calendar by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/calendar/type?from={{today}}&to={{todayPlusTen}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"calendar",
+								"type"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blocks by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/availability/blocks/byDate?from={{today}}&to={{todayPlusTen}}&limit=2&skip=0",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"availability",
+								"blocks",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rate",
+			"item": [
+				{
+					"name": "Rates Reserved by Updated",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"const earlyToday = new Date(new Date().setHours(0, 0, 0, 0));\r",
+									"pm.variables.set(\"resupdated-from\", moment(earlyToday).toISOString());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/reserved/updated?limit=10&from={{resupdated-from}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"reserved",
+								"updated"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "from",
+									"value": "{{resupdated-from}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Reserved by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/reserved/byDate?from={{today}}&to={{todayPlusTen}}&limit=10",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"reserved",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Nightly",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/nightly?from={{today}}&to={{todayPlusTen}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"nightly"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rates Nightly Update",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"rateId\": \"86abdc47-db5f-4e48-aa98-a53c4612ef6b\",\r\n        \"data\": [\r\n            { \"date\": \"2026-01-14\", \"price\": 190.00 },\r\n            { \"date\": \"2026-01-15\", \"price\": 190.00 },\r\n            { \"date\": \"2026-01-16\", \"price\": 215.00, \"minimumNights\": 2, \"closedToArrival\": false },\r\n            { \"date\": \"2026-01-16\", \"price\": 215.00, \"minimumNights\": 2, \"closedToDeparture\": true }\r\n        ]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rezcloudapi_url}}/rates/nightly",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"rates",
+								"nightly"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservations",
+			"item": [
+				{
+					"name": "Reservations by Updated",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"const earlyToday = new Date(new Date().setHours(0, 0, 0, 0));\r",
+									"pm.variables.set(\"resupdated-from\", moment(earlyToday).toISOString());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/updated?limit=10&from={{resupdated-from}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"updated"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "from",
+									"value": "{{resupdated-from}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservations - Detect Updates",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"const now = moment();\r",
+									"\r",
+									"const priorRunAt = pm.collectionVariables.get(\"resupdated-lastrun\");\r",
+									"pm.collectionVariables.set(\"resupdated-lastrun\", now.toISOString());\r",
+									"pm.variables.set(\"resupdated-from\", priorRunAt || now.toISOString());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/updated?limit=10&from={{resupdated-from}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"updated"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "from",
+									"value": "{{resupdated-from}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservations by Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/byDate?from={{today}}&to={{todayPlusTen}}&limit=10",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"byDate"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{today}}"
+								},
+								{
+									"key": "to",
+									"value": "{{todayPlusTen}}"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservation Details",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/reservations/{{reservation_id}}",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"reservations",
+								"{{reservation_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"const currentReservationId = pm.variables.get(\"reservation_id\");\r",
+							"if (currentReservationId == null || currentReservationId === \"\") {\r",
+							"    const responseData = pm.response.json();\r",
+							"    const recentReservationId = responseData?.[0]?.id;\r",
+							"    if (recentReservationId != null) {\r",
+							"        pm.collectionVariables.set(\"reservation_id\", recentReservationId);\r",
+							"    }\r",
+							"}"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "misc",
+			"item": [
+				{
+					"name": "Token Info",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rezcloudapi_url}}/auth/tokendetails",
+							"host": [
+								"{{rezcloudapi_url}}"
+							],
+							"path": [
+								"auth",
+								"tokendetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "authRequestParams",
+				"value": [
+					{
+						"key": "tid",
+						"value": "",
+						"enabled": false,
+						"send_as": "request_url"
+					},
+					{
+						"key": "multiTenant",
+						"value": "true",
+						"enabled": false,
+						"send_as": "request_url"
+					}
+				],
+				"type": "any"
+			},
+			{
+				"key": "scope",
+				"value": "revenue_management guest_communication offline_access",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{rezcloudapi_clientsecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{rezcloudapi_clientid}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{rezcloudapi_auth_url}}/connect/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{rezcloudapi_auth_url}}/connect/authorize",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"const moment = require('moment');\r",
+					"const now = moment();\r",
+					"const tenDaysLayter = now.clone().add(10, 'days');\r",
+					"\r",
+					"pm.collectionVariables.set(\"now\", now.toISOString());\r",
+					"pm.collectionVariables.set(\"today\", now.format('YYYY-MM-DD'));\r",
+					"pm.collectionVariables.set(\"todayPlusTen\", tenDaysLayter.format('YYYY-MM-DD'));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rezcloudapi_url",
+			"value": "https://cloudapi.rezstream.com"
+		},
+		{
+			"key": "rezcloudapi_auth_url",
+			"value": "https://account.rezstream.com"
+		},
+		{
+			"key": "rezcloudapi_clientid",
+			"value": ""
+		},
+		{
+			"key": "rezcloudapi_clientsecret",
+			"value": ""
+		},
+		{
+			"key": "reservation_id",
+			"value": ""
+		},
+		{
+			"key": "now",
+			"value": ""
+		},
+		{
+			"key": "today",
+			"value": ""
+		},
+		{
+			"key": "todayPlusTen",
+			"value": ""
+		},
+		{
+			"key": "resupdated-lastrun",
+			"value": ""
+		}
+	]
+}
