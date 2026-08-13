@@ -61,7 +61,42 @@ When we are ready to integrate, we can supply you with the client ID and client 
 
 ### Scopes
 
-There are a number of possible scopes that can be provided when requesting a token. Those scopes can be found within the OpenID well known configuration document. It is strongly recommended that scopes focused on use cases be used over scopes focused on access roles. For example, scopes such as `guest_communication` or `revenue_management` should be preferred to other more granular scopes. This will provide a better user experience and also allows authorizations to better grow with the API.
+There are a number of possible scopes that can be provided when requesting a token. Those scopes can be found within the OpenID well known configuration document. It is strongly recommended that scopes focused on use cases be used over scopes focused on access roles. For example, scopes such as `guest_communication` or `revenue_management` should be preferred over other more granular scopes. This will provide a better user experience and also allow authorizations to evolve with our API.
+
+| Name | Authorization Use Case |
+|------|------------------------|
+| `offline_access` | any - required for refresh tokens |
+| `roles` | any - list roles for the authenticated identity |
+| `openid` | SSO only - required for OpenID Connect |
+| `profile` | SSO only - request some profile details such as name |
+| `email` | SSO only - request email if available |
+| any use case API scopes | API only - see the next table
+| any `resource:verb` | API only - role mapped scopes
+
+Because our authentication system has multiple use cases, not all scopes are compatible with each other.
+When authorizing with our system, simultaneously requesting scopes that are for API use only and scopes that are for
+SSO use only will result in an error.
+
+See the [OpenID Configuration Document](https://account.rezstream.com/.well-known/openid-configuration) for current supported scopes.
+
+#### Use case focused API scopes
+
+We prefer integrations to use one or more use case focused scopes. This allows us to better evolve our
+API without requiring existing integrations to request user re-authorization to gain new roles.
+
+| Name | Roles | Integration Use Cases |
+|------|-------|-----------------------|
+| guest_communication | `folio:view`, `inventory:view` | Query detailed guest, reservation, invoice, and other folio data. |
+| ari_query | `availability:view`, `inventory:view`, `rate:view` | Query availability, rate, and inventory (ARI) data. |
+| revenue_management | `availability:view`, `inventory:view`, `rate:edit` | Modify rate or pricing based on current availability, rate, and inventory (ARI) data. |
+
+#### Granular role mapped API scopes
+
+We discourage the use of role mapped scopes as they can be more brittle as our API evolves.
+They are available if needed and supported for specialized cases that may require them.
+If a new use case is needed, please reach out to us so we can add what is required.
+The role mapped scopes can be found within our [OpenID Configuration Document](https://account.rezstream.com/.well-known/openid-configuration) matching the format `resource:verb`.
+
 
 ### Multi-Tenant OAuth Tokens
 
