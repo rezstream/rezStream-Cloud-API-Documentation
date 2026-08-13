@@ -61,21 +61,21 @@ When we are ready to integrate, we can supply you with the client ID and client 
 
 ### Scopes
 
-There are a number of possible scopes that can be provided when requesting a token. Those scopes can be found within the OpenID well known configuration document. It is strongly recommended that scopes focused on use cases be used over scopes focused on access roles. For example, scopes such as `guest_communication` or `revenue_management` should be preferred to other more granular scopes. This will provide a better user experience and also allows authorizations to better grow with the API.
-
-Because our authentication system has multiple use cases, not all scopes are compatible with each other.
-When authorizing with our system, simultaneously requesting scopes that are for API use only and scopes that are for
-SSO use only will result in an error.
+There are a number of possible scopes that can be provided when requesting a token. Those scopes can be found within the OpenID well known configuration document. It is strongly recommended that scopes focused on use cases be used over scopes focused on access roles. For example, scopes such as `guest_communication` or `revenue_management` should be preferred over other more granular scopes. This will provide a better user experience and also allow authorizations to evolve with our API.
 
 | Name | Authorization Use Case |
 |------|------------------------|
 | `offline_access` | any - required for refresh tokens |
 | `roles` | any - list roles for the authenticated identity |
 | `openid` | SSO only - required for OpenID Connect |
-| `profile` | SSO only - request some profile details |
+| `profile` | SSO only - request some profile details such as name |
 | `email` | SSO only - request email if available |
 | any use case API scopes | API only - see the next table
 | any `resource:verb` | API only - role mapped scopes
+
+Because our authentication system has multiple use cases, not all scopes are compatible with each other.
+When authorizing with our system, simultaneously requesting scopes that are for API use only and scopes that are for
+SSO use only will result in an error.
 
 See the [OpenID Configuration Document](https://account.rezstream.com/.well-known/openid-configuration) for current supported scopes.
 
